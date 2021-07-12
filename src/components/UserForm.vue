@@ -38,6 +38,19 @@ export default {
             returning: [{ __typename: "users", id: -1, name, twitter, rocket }],
           },
         },
+      })
+      .then(data => {
+        console.log("User added: ", data)
+      })
+      .catch(error => {
+        console.error(error)
+      })
+       .then(() => {
+        Object.assign(this.$data, {
+          name: "",
+          twitter: "",
+          rocket: ""
+        })
       });
     },
   },
