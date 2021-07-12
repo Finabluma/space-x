@@ -1,6 +1,7 @@
 <script>
 import uuidv4 from "uuid/v4";
 import { INSERT_USER } from "../mutations";
+import { GET_USERS } from "../queries";
 
 export default {
   data() {
@@ -22,7 +23,14 @@ export default {
           twitter,
           rocket,
         },
-        refetchQueries:["getUsers"]
+        // refetchQueries: ["getUsers"],
+        update: (cache, { data: { insert_users } }) => {
+          const [newUser] = insert_users.returning;
+          const data = cache.readQuery({ query: GET_USERS });
+          data.users.unshift(newUser);
+          data.users.pop();
+          cache.writeQuery({query:GET_USERS, data})
+        },
       });
     },
   },
