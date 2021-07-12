@@ -22,6 +22,7 @@ export default {
           twitter,
           rocket,
         },
+        refetchQueries:["getUsers"]
       });
     },
   },
